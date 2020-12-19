@@ -1,0 +1,118 @@
+<html>
+<head>
+    <title>Home Page</title>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyDzbslN-cWMHeGXCdV2mt76i-7UuNjktCs",
+    authDomain: "immobi-a8808.firebaseapp.com",
+    databaseURL: "https://immobi-a8808.firebaseio.com",
+    projectId: "immobi-a8808",
+    storageBucket: "immobi-a8808.appspot.com",
+    messagingSenderId: "60962838038",
+    appId: "1:60962838038:web:877629662b2d58077f0737",
+    measurementId: "G-DLZKKCXEKK"
+  };
+  // Initialize Firebase
+ firebase.initializeApp(firebaseConfig);
+    var defaultDatabase = firebase.database();
+
+</script>
+<script>
+    
+    function logout()
+    {   
+        //firebase.initializeApp(firebaseConfig);
+        firebase.auth().signOut();
+       location.href = "login.html";
+        sessionStorage.clear();
+    } 
+    
+     function clearll()
+    {
+        var uid1=firebase.auth().currentUser.uid;
+        let userRef = firebase.database().ref("users/"+uid1);
+        userRef.remove();
+        document.querySelectorAll(".bdr").forEach(e => e.parentNode.removeChild(e));
+        document.querySelectorAll(".btn").forEach(e => e.parentNode.removeChild(e));
+        document.querySelectorAll(".dbtn").forEach(e => e.parentNode.removeChild(e));
+    }
+    
+    function addnote(){
+var len = document.querySelectorAll('[id="myDIV"] > div').length; 
+len=len+1;
+var div = document.createElement("div");
+document.getElementById("myDIV").appendChild(div).setAttribute("id", len);  
+var para = document.createElement("textarea");
+para.innerHTML = "Enter your note here!!!"; 
+var aaa="t"+len;
+document.getElementById(len).appendChild(para).setAttribute("id", aaa);  
+document.getElementById(aaa).setAttribute("class", "bdr");
+
+document.getElementById(len).appendChild(document.createElement("button")).setAttribute("id", "b"+len);
+var blen="b"+len;
+document.getElementById(blen).innerHTML="update";
+document.getElementById(blen).setAttribute("class", "btn");
+document.getElementById(blen).setAttribute("onclick", "update(\""+aaa+"\")");
+        
+document.getElementById(len).appendChild(document.createElement("button")).setAttribute("id", "d"+len);
+var dlen="d"+len;
+document.getElementById(dlen).innerHTML="Delete";
+document.getElementById(dlen).setAttribute("class", "dbtn");
+document.getElementById(dlen).setAttribute("onclick", "deletenode(\""+len+"\",\""+aaa+"\")");
+
+            
+        var uid1=firebase.auth().currentUser.uid;
+        var playersRef = firebase.database().ref("users/"+uid1+"/"+aaa);
+        playersRef.set ({
+   data : {
+      id: aaa,
+      note: document.getElementById(aaa).value
+   }
+});
+}
+    
+    function update(abc){
+        var node = abc;
+        var node1 ="#"+node;
+        var uid1=firebase.auth().currentUser.uid;
+        var playersRef = firebase.database().ref("users/"+uid1+"/"+node);
+        playersRef.update ({
+   data : {
+      id: node,
+      note: document.querySelector(node1).value
+   }
+});
+    }
+    
+    function deletenode(qwe,rty){
+        var node = qwe;
+        var node1 =rty;
+        var uid1=firebase.auth().currentUser.uid;
+        document.querySelectorAll("[id='"+node+"']").forEach(e => e.parentNode.removeChild(e));
+        var playersRef = firebase.database().ref("users/"+uid1+"/"+node1);
+        playersRef.remove();
+        
+    }
+    
+    </script>
+   <link rel="stylesheet" href="style.css">
+    </head>
+<body>
+<h1>Welcome to Notes page</h1>
+<button onclick="addnote()">Add Note</button>
+<button onclick="clearll()">Clear all the Notes</button>
+ <button class="logoutLblPos" type="button" onclick="logout()">Logout</button>
+    
+    
+    <div class="warning" id="myDIV" class="bdr">
+    
+</div>
+    
+</body>
+</html>

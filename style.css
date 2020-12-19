@@ -1,0 +1,42 @@
+ .center {
+  margin: auto;
+  width: auto;
+  border: solid green;
+  padding: auto;
+}
+        .container {
+    width: 20%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+ 
+  box-sizing: border-box;
+}
+
+.logoutLblPos{
+
+   position:fixed;
+   right:10px;
+   top:5px;
+    background-color: cadetblue;
+}
+
+
+.loginLblPos{
+
+   position:fixed;
+    background-color: cadetblue;
+}
+
+.warning {
+  //background-color: #ffffcc;
+  border-left: 6px solid #ffeb3b;
+}
+
+.bdr{
+    border-width:0px;
+border:none;
+    height: : 400%;
+    width: 100%;
+    background-color: #ffffcc;
+}

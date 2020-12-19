@@ -1,0 +1,67 @@
+<html>
+<head>
+    <title>Login Page</title>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyDzbslN-cWMHeGXCdV2mt76i-7UuNjktCs",
+    authDomain: "immobi-a8808.firebaseapp.com",
+    databaseURL: "https://immobi-a8808.firebaseio.com",
+    projectId: "immobi-a8808",
+    storageBucket: "immobi-a8808.appspot.com",
+    messagingSenderId: "60962838038",
+    appId: "1:60962838038:web:877629662b2d58077f0737",
+    measurementId: "G-DLZKKCXEKK"
+  };
+  // Initialize Firebase
+//  firebase.initializeApp(firebaseConfig);
+ // firebase.analytics();
+</script>
+<script>
+    
+    function signInWithEmailAndPassword()
+    {   
+        if (!firebase.apps.length){
+        firebase.initializeApp(firebaseConfig);
+        console.log("Hello");
+        }
+        firebase.auth().signInWithEmailAndPassword(document.querySelector('[id=uname]').value,document.querySelector('[id=psw]').value)
+  .then((user) => {
+    //console.log("Welcome");
+    sessionStorage.setItem('uname', document.querySelector('[id=uname]').value);
+    location.href = "homepage.html";
+  })
+  .catch((error) => {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+           // console.log(errorMessage); 
+            alert(errorMessage);
+  });
+    }
+    </script>
+<link rel="stylesheet" href="style.css">
+    </head>
+<body>
+    <h1>Login Page</h1>
+     <div class="container">
+<form class="center" action="signInWithEmailAndPassword()" method="post">
+  
+  <div class="container">
+    <label for="uname"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" id="uname" required>
+    <br>
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" id="psw" required>
+    <br>
+    <button class="loginLblPos" type="button" onclick="signInWithEmailAndPassword()">Login</button>
+    
+  </div>
+
+
+         </form></div>
+
+</body>
+</html>
